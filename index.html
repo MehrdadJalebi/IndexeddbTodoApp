@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=380">
+	<title>To do List</title>
+	<link href="style.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+  <div class="todo-box">
+    <ul id="task-list"></ul>
+    <input id="title" type="text" placeholder="title">
+    <input id="year" type="text" placeholder="year">
+    <select id="month">
+      <option value="" disabled selected hidden>month</option>
+    </select>
+    <input id="day" type="text" placeholder="day">
+    <input id="hour" type="text" placeholder="hour">
+    <input id="min" type="text" placeholder="min">
+    <button class="button" onclick="addTask()" id="submit">submit task</button>
+  </div>
+</body>
+<script src="script.js"></script>
+</html>
