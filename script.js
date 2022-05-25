@@ -35,17 +35,51 @@ let newTask = [
   }
 ];
 
-/**** first task
-create a "toDoList" database in indexeddb
-.
-.
-.
-.
-.
-.
-.
-.
-.
+
+const DBOpenRequest = window.indexedDB.open("toDoList", 1);
+DBOpenRequest.onerror = event => {
+  console.error(event)
+};
+DBOpenRequest.onsuccess = event => {
+  console.log(DBOpenRequest.result)
+  db = DBOpenRequest.result;
+};
+
+DBOpenRequest.onupgradeneeded = event => {
+  let db = event.target.result;
+  db.onerror = event => {
+    console.error(event)
+  };
+  let objectStore = db.createObjectStore("tasks", { keyPath: "title" });
+  objectStore.createIndex("year", "year", { unique: false });
+  objectStore.createIndex("month", "month", { unique: false });
+  objectStore.createIndex("day", "day", { unique: false });
+  objectStore.createIndex("hour", "hour", { unique: false });
+  objectStore.createIndex("min", "min", { unique: false });
+};
+function addTask() {
+  let newItem = [
+    { 
+      title: title.value,
+      year: year.value,
+      month: month.value,
+      day: day.value,
+      hour: hour.value,
+      min: min.value
+    }
+  ];
+  let transaction = db.transaction(["tasks"], "readwrite");
+  let objectStore = transaction.objectStore("tasks");
+  let objectStoreRequest = objectStore.add(newItem[0]);
+  objectStoreRequest.onsuccess = function(event) {
+    title.value = '';
+    year.value = null;
+    month.value = '';
+    day.value = null;
+    hour.value = null;
+    min.value = null;
+  };
+}
 
 /**** first task ended *****/
 
